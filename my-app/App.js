@@ -36,15 +36,10 @@ export default function App() {
       <Center
         _dark={{ bg: "blueGray.900" }}
         _light={{ bg: "blueGray.50" }}
-        px={4}
         flex={1}
       >
-        <VStack space={5} alignItems="center">
-          <StickyHeaderHome />
-        </VStack>
+        <StickyHeaderHome /> <FooterNB />
       </Center>
-
-      <FooterNB />
     </NativeBaseProvider>
   );
 }

@@ -8,6 +8,7 @@ import {
   Heading,
   IconButton,
   Icon,
+  ScrollView,
   HStack,
   Avatar,
   VStack,
@@ -16,31 +17,42 @@ import {
 } from "native-base";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
+import FlatListHome from "./FlatListHome";
 
 function Example() {
   const [mode, setMode] = useState("Basic");
   return (
-    <Center h="290px">
-      <Box
-        _dark={{
-          bg: "coolGray.800",
-        }}
-        _light={{
-          bg: "white",
-        }}
-        flex="1"
-        safeAreaTop
-        maxW="400px"
-        w="100%"
-      >
+    <Box
+      _dark={{
+        bg: "coolGray.800",
+      }}
+      _light={{
+        bg: "white",
+      }}
+      flex="1"
+      safeAreaTop
+      maxW="400px"
+      w="100%"
+    >
+      <HStack px="5" alignItems="center" justifyContent="space-between">
+        <HStack space="2">
+          <Box w="10" h="10" bg="violet.800" rounded="xl"></Box>
+          <Box w="10" h="10" bg="violet.800" rounded="xl"></Box>
+        </HStack>
         <Heading p="4" pb="3" size="lg">
           Inbox
         </Heading>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Basic />
-        </ScrollView>
-      </Box>
-    </Center>
+        <HStack space="2">
+          <Box w="10" h="10" bg="violet.800" rounded="xl"></Box>
+          <Box w="10" h="10" bg="violet.800" rounded="xl"></Box>
+        </HStack>
+      </HStack>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* <Basic /> */}
+        <FlatListHome />
+      </ScrollView>
+    </Box>
   );
 }
 

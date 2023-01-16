@@ -55,11 +55,12 @@ export default function FlatListHome() {
     },
   ];
   return (
-    <Box safeArea>
+    <Box>
       <Heading fontSize="xl" p="4" pb="3">
         Inbox
       </Heading>
       <FlatList
+        showsHorizontalScrollIndicator={false}
         horizontal
         data={data}
         renderItem={({ item }) => (

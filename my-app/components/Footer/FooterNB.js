@@ -22,7 +22,6 @@ export default function FooterNB() {
     <Box
       _dark={{ bg: "blueGray.900" }}
       _light={{ bg: "blueGray.50" }}
-      flex={1}
       bg="white"
       safeAreaTop
       width="100%"
