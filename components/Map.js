@@ -4,7 +4,7 @@ import { Entypo } from "@expo/vector-icons";
 
 export const MapTopBar = () => {
   return (
-    <Box position={"fixed"} left="0" top="0" alignItems="center">
+    <Box p="5" position={"fixed"} left="0" top="0" alignItems="center">
       <IconButton
         icon={<Icon as={Entypo} name="emoji-happy" />}
         borderRadius="full"
