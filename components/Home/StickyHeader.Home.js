@@ -17,7 +17,7 @@ import {
 } from "native-base";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons";
-import FlatListHome from "./FlatListHome";
+import FlatListHome, { FlatListHomeDiscover } from "./FlatList.Home";
 
 function Example() {
   const [mode, setMode] = useState("Basic");
@@ -51,6 +51,7 @@ function Example() {
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <Basic /> */}
         <FlatListHome />
+        <InfiniteScreen />
       </ScrollView>
     </Box>
   );

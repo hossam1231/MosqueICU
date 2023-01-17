@@ -15,8 +15,8 @@ import {
 import NativeBaseIcon from "./components/NativeBaseIcon";
 import { Platform } from "react-native";
 import FooterNB from "./components/Footer/FooterNB";
-import FlatListHome from "./components/Home/FlatListHome";
-import StickyHeaderHome from "./components/Home/StickyHeaderHome";
+import FlatListHome from "./components/Home/FlatList.Home";
+import StickyHeaderHome from "./components/Home/StickyHeader.Home";
 
 // Define the config
 const config = {
