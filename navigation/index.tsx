@@ -66,7 +66,7 @@ function RootNavigator() {
         <Stack.Screen
           name="Modal"
           component={MapScreen}
-          options={{ headerShown: false }}
+          // options={{ headerShown: false }}
         />
       </Stack.Group>
     </Stack.Navigator>
@@ -91,9 +91,10 @@ function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="TabOne"
-        component={TabOneScreen}
+        component={MapScreen}
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
           title: "Tab One",
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
@@ -114,7 +115,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabTwo"
-        component={TabTwoScreen}
+        component={TabOneScreen}
         options={{
           title: "Tab Two",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,

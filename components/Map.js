@@ -9,6 +9,8 @@ export const MapTopBar = () => {
   return (
     <>
       <Box
+        bg="grey"
+        safeArea
         p="5"
         rounded="xl"
         position={"fixed"}
