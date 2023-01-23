@@ -14,7 +14,14 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 export const StaggerButton = () => {
   const { isOpen, onToggle } = useDisclose();
   return (
-    <Center bg="black" safeArea  p="5" position="fixed" right="0" top="0">
+    <Center
+      // bg="black"
+      safeArea
+      p="5"
+      position="fixed"
+      right="0"
+      top="0"
+    >
       <Box alignItems="center" minH="220">
         <HStack alignItems="center">
           <IconButton

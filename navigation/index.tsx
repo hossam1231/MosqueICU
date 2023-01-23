@@ -19,6 +19,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import MapScreen from "../screens/MapScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
+import SpotlightScreen from "../screens/SpotlightScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
@@ -93,7 +94,7 @@ function BottomTabNavigator() {
         name="TabOne"
         component={MapScreen}
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One",
+          title: "Map",
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
@@ -115,9 +116,28 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabTwo"
+        component={SpotlightScreen}
+        options={{
+          title: "Spotlight",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="sad"
         component={TabOneScreen}
         options={{
-          title: "Tab Two",
+          title: "Muslim",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="er"
+        component={TabOneScreen}
+        options={{
+          title: "Causes",
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

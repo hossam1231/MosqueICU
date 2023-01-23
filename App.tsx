@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { NativeBaseProvider } from "native-base";
+import { Center, NativeBaseProvider, Spinner } from "native-base";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import useCachedResources from "./hooks/useCachedResources";
@@ -11,7 +11,7 @@ export default function App() {
   const colorScheme = useColorScheme();
 
   if (!isLoadingComplete) {
-    return null;
+    return <Center flex="1"><Spinner></Spinner></Center>;
   } else {
     return (
       <SafeAreaProvider>
