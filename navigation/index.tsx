@@ -19,7 +19,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import MapScreen from "../screens/MapScreen";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import SpotlightScreen from "../screens/SpotlightScreen";
+import SpotlightScreen from "../screens/CausesScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
@@ -28,6 +28,8 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import CausestScreen from "../screens/CausesScreen";
+import CausesScreen from "../screens/CausesScreen";
 
 export default function Navigation({
   colorScheme,
@@ -116,7 +118,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabTwo"
-        component={SpotlightScreen}
+        component={TabOneScreen}
         options={{
           title: "Spotlight",
           headerShown: false,
@@ -125,7 +127,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="sad"
-        component={TabOneScreen}
+        component={TabTwoScreen}
         options={{
           title: "Muslim",
           headerShown: false,
@@ -134,7 +136,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="er"
-        component={TabOneScreen}
+        component={CausesScreen}
         options={{
           title: "Causes",
           headerShown: false,

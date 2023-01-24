@@ -11,7 +11,13 @@ export default function App() {
   const colorScheme = useColorScheme();
 
   if (!isLoadingComplete) {
-    return <Center flex="1"><Spinner></Spinner></Center>;
+    return (
+      <NativeBaseProvider>
+        <Center flex="1">
+          <Spinner></Spinner>
+        </Center>
+      </NativeBaseProvider>
+    );
   } else {
     return (
       <SafeAreaProvider>
