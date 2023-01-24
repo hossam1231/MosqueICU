@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "h-stack",
+    "slug": "h-stack",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
