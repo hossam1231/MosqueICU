@@ -1,31 +1,30 @@
-import { StatusBar } from "expo-status-bar";
-import { Center, NativeBaseProvider, Spinner } from "native-base";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { PublicRoutes } from './src/routes/public.routes';
 
-import useCachedResources from "./hooks/useCachedResources";
-import useColorScheme from "./hooks/useColorScheme";
-import Navigation from "./navigation";
+import theme from './src/styles/GlobalStyles';
+import { useFonts, Quicksand_400Regular, Quicksand_500Medium, Quicksand_700Bold } from '@expo-google-fonts/quicksand';
+import { TabProvider } from './src/context/TabContext';
+import { HLoading } from 'components/HLoading';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
 
-  if (!isLoadingComplete) {
-    return (
-      <NativeBaseProvider>
-        <Center flex="1">
-          <Spinner></Spinner>
-        </Center>
-      </NativeBaseProvider>
-    );
-  } else {
-    return (
-      <SafeAreaProvider>
-        <NativeBaseProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </NativeBaseProvider>
-      </SafeAreaProvider>
-    );
+  let [fontsLoaded] = useFonts({
+    quicksand_400: Quicksand_400Regular,
+    quicksand_500: Quicksand_500Medium,
+    quicksand_700: Quicksand_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return <HLoading />;
   }
+
+  return (
+    <TabProvider>
+      <NavigationContainer>
+        <PublicRoutes />
+        <StatusBar style="light" backgroundColor={theme.colors.black_0} />
+      </NavigationContainer>
+    </TabProvider>
+  );
 }
