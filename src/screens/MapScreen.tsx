@@ -109,11 +109,11 @@ const MapScreen = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
-  // const snapPoints = useMemo(() => ["13%", "25%", "50%"], []);
-  const snapPoints = useMemo(
-    () => [windowHeight / 10, windowHeight / 5, windowHeight / 2.5],
-    []
-  );
+  const snapPoints = useMemo(() => ["13%", "25%", "50%"], []);
+  // const snapPoints = useMemo(
+  //   () => [windowHeight / 10, windowHeight / 5, windowHeight / 2.5],
+  //   []
+  // );
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -125,6 +125,7 @@ const MapScreen = () => {
   return (
     <View style={styles.container}>
       <MapView
+        userInterfaceStyle={"dark"}
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
@@ -143,9 +144,9 @@ const MapScreen = () => {
           }}
         />
       </MapView>
-      <HStack width="100%" justifyContent="space-between" position="absolute">
+      {/* <HStack width="100%" justifyContent="space-between" position="absolute">
         <MapTopBar />
-      </HStack>
+      </HStack> */}
       <BottomSheet
         ref={bottomSheetRef}
         index={1}

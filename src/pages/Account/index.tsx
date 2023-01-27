@@ -14,10 +14,11 @@ export function AccountPage({ navigation }: Props) {
   }
 
   return (
-    <HBody useSafeAreaHeader customHeaderContent={<HHeaderAccount />}>
-      <SContent>
-        <MapScreen />
-      </SContent>
+    <HBody
+      // useSafeAreaHeader
+      customHeaderContent={<HHeaderAccount />}
+    >
+      <MapScreen />
     </HBody>
   );
 }

@@ -11,8 +11,11 @@ import {
 } from "@expo-google-fonts/quicksand";
 import { TabProvider } from "./src/context/TabContext";
 import { HLoading } from "components/HLoading";
+import useCachedResources from "./hooks/useCachedResources";
 
 export default function App() {
+  const isLoadingComplete = useCachedResources();
+
   let [fontsLoaded] = useFonts({
     quicksand_400: Quicksand_400Regular,
     quicksand_500: Quicksand_500Medium,
