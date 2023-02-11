@@ -51,7 +51,7 @@ export function HSimpleList({
       )}
       <FlatList
         style={{ marginTop: 8 }}
-        showsHorizontalScrollIndicator={"false"}
+        showsHorizontalScrollIndicator={false}
         data={items}
         renderItem={renderItem}
         keyExtractor={(key, index) => index.toString()}

@@ -1,5 +1,16 @@
 import React from "react";
-import { Box, FlatList, Heading, Avatar, HStack, VStack, Text, Spacer, Center, NativeBaseProvider } from "native-base";
+import {
+  Box,
+  FlatList,
+  Heading,
+  Avatar,
+  HStack,
+  VStack,
+  Text,
+  Spacer,
+  Center,
+  NativeBaseProvider,
+} from "native-base";
 import AnimationWithImperativeApi from "components/LottieAnimation";
 import OnpressAnimation from "components/Lottie/OnpressAnimation";
 
@@ -44,7 +55,7 @@ export default function PrayersFlatlist() {
     <Center>
       <FlatList
         horizontal
-        showsHorizontalScrollIndicator="false"
+        showsHorizontalScrollIndicator={false}
         data={data}
         renderItem={({ item }) => (
           //   <VStack space={3} m="2">

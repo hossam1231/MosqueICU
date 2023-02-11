@@ -61,7 +61,7 @@ export default function FlatListFL() {
         For you
       </Heading>
       <FlatList
-        showsHorizontalScrollIndicator={"false"}
+        showsHorizontalScrollIndicator={false}
         horizontal
         data={data}
         renderItem={({ item }) => (
@@ -128,7 +128,7 @@ export function FlatListHomeDiscover() {
         Inbox
       </Heading>
       <FlatList
-        showsHorizontalScrollIndicator={"false"}
+        showsHorizontalScrollIndicator={false}
         horizontal
         data={data}
         renderItem={({ item }) => (
