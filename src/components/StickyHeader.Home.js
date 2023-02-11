@@ -48,7 +48,7 @@ function Example() {
         </HStack>
       </HStack>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={"false"}>
         {/* <Basic /> */}
         <FlatListHome />
         {/* <InfiniteScreen /> */}

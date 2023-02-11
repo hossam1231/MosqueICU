@@ -102,7 +102,12 @@ export function HHighlightPanel({ children, onPress }: Props) {
           )
         }
       >
-        <SImageBackground source={getImage()}>
+        {/* <SImageBackground source={getImage()}> */}
+        <SImageBackground
+          resizeMode="cover"
+          // source={require("../../../../../animations/day-to-night-cycle.gif")}
+          source={require("../../../../../assets/palmTree.png")}
+        >
           <HHeaderGrandientBackground />
           <HBottomGradientBackground>
             <SHighlightTitle>
@@ -112,7 +117,16 @@ export function HHighlightPanel({ children, onPress }: Props) {
 
             {/* <SHighlightSubtitle>{getOverview()}</SHighlightSubtitle>
              */}
-            <HStack mt={"2"} bg="white" w="80%" p="2" shadow={3} rounded="xl">
+            <HStack
+              alignItems={"center"}
+              justifyContent={"center"}
+              mt={"2"}
+              w="80%"
+              p="2"
+              // borderWidth="1px"
+              borderColor={"grey.400"}
+              rounded="xl"
+            >
               <PrayersFlatlist />
             </HStack>
           </HBottomGradientBackground>

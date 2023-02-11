@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "HBO Max Clone",
-    "slug": "hbo-max-react-native-clone",
+    "name": "Mosque.icu",
+    "slug": "mosque-icu",
     "privacy": "public",
-    "description": "This is a clone app by HBO Max using React Native Expo",
+    "description": "See local mosques and be present",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

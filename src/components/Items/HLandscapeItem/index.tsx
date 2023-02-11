@@ -1,24 +1,41 @@
+import { Box } from "native-base";
 import { TouchableOpacity, View } from "react-native";
 import { IItemData } from "../IItemData";
 import { SImage, STitle } from "./styles";
 
-export function HLandscapeItem({
-    id,
-    image,
-    title,
-    onPress
-}: IItemData){
+export function HLandscapeItem({ id, image, title, onPress }: IItemData) {
+  const safeTitle =
+    !!title && title.length > 25 ? `${title.substring(0, 25)}...` : title;
 
-    const safeTitle = !!title && title.length > 25 ? `${title.substring(0, 25)}...` : title
+  return (
+    <TouchableOpacity onPress={() => !!onPress && onPress(id)}>
+      <View style={{ paddingBottom: !!title ? 10 : 0 }}>
+        <SImage source={{ uri: `https://image.tmdb.org/t/p/w500${image}` }} />
+        {!!title && <STitle>{safeTitle}</STitle>}
+      </View>
+    </TouchableOpacity>
+  );
+}
 
-    return (
-        <TouchableOpacity onPress={() => !!onPress && onPress(id)}>
-            <View style={{ paddingBottom: !!title ? 10 : 0 }}>
-                <SImage source={{ uri: `https://image.tmdb.org/t/p/w500${image}` }} />
-                {
-                    !!title && <STitle>{safeTitle}</STitle>
-                }
-            </View>
-        </TouchableOpacity>
-    )
+export function HLandscapeItemFY({ id, image, title, onPress }: IItemData) {
+  const safeTitle =
+    !!title && title.length > 25 ? `${title.substring(0, 25)}...` : title;
+
+  return (
+    <TouchableOpacity onPress={() => !!onPress && onPress(id)}>
+      <Box
+        rounded="xl"
+        style={{
+          width: 220,
+          marginHorizontal: 6,
+          height: 140,
+          backgroundColor: "white",
+          paddingBottom: !!title ? 10 : 0,
+        }}
+      >
+        <SImage source={image} />
+        {!!title && <STitle>{safeTitle}</STitle>}
+      </Box>
+    </TouchableOpacity>
+  );
 }

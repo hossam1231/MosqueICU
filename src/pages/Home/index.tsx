@@ -4,16 +4,21 @@ import { HBody } from "components/HBody";
 import { HLoading } from "components/HLoading";
 import { HSimpleList } from "components/HSimpleList";
 import { HHighlightItem } from "components/Items/HHighlightItem";
-import { HLandscapeItem } from "components/Items/HLandscapeItem";
+import {
+  HLandscapeItem,
+  HLandscapeItemFY,
+} from "components/Items/HLandscapeItem";
 import { HLongLandscapeItem } from "components/Items/HLongLandscapeItem";
 import { HLongPortraitItem } from "components/Items/HLongPortraitItem";
 import { HPortraitItem } from "components/Items/HPortraitItem";
 import { HSquareItem } from "components/Items/HSquareItem";
+import { Box, Text, ZStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import { RouterKey } from "routes/routes-keys";
 import theme from "styles/GlobalStyles";
 import { Movie } from "types/movie.type";
 import { TVShow } from "types/tvshow.type";
+import { justForYouData } from "../../../data/justForYou";
 import { HHighlightPanel } from "./components/HHighlightPanel";
 import {
   getDcMoviesTvShowsData,
@@ -84,20 +89,24 @@ export function HomePage({ navigation }: Props) {
       <HHighlightPanel onPress={handleShowDetailItem}>
         <HSimpleList
           title="Just For You"
-          items={items.movies}
+          items={justForYouData}
           renderItem={({ item }) => (
-            <HLandscapeItem
-              id={item.id}
-              image={item.backdrop_path}
-              onPress={handleShowDetailItem}
+            // <ZStack>
+            <HLandscapeItemFY
+              // id={item.id}
+              image={item.uri}
+              // onPress={handleShowDetailItem}
             />
+            //   <Text>hi</Text>
+            // </ZStack>
+            // <Box w="20" h="20" m="2" bg="white"></Box>
           )}
         />
       </HHighlightPanel>
 
       <HSimpleList
-        title="Iconic and Unmissible"
-        subtitle="You love them, we love them, and the hits just keep on coming"
+        title="Wholesome and Unmissible"
+        subtitle="You love them, we love them, and may their reward be with their Lord."
         items={items.iconicMovies}
         renderItem={({ item }) => (
           <HPortraitItem
