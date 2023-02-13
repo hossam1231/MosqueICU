@@ -58,28 +58,6 @@ export default function PrayersFlatlist() {
         showsHorizontalScrollIndicator={false}
         data={data}
         renderItem={({ item }) => (
-          //   <VStack space={3} m="2">
-          //     <VStack
-          //       alignItems={"center"}
-          //       space={[2, 3]}
-          //       justifyContent="space-between"
-          //     >
-          //       <AnimationWithImperativeApi />
-          //       <VStack>
-          //         <Heading
-          //           fontFamily={"Oswald-Bold"}
-          //           sub
-          //           _dark={{
-          //             color: "warmGray.50",
-          //           }}
-          //           color="coolGray.800"
-          //           bold
-          //         >
-          //           {item.fullName.toUpperCase()}
-          //         </Heading>
-          //       </VStack>
-          //     </VStack>
-          //   </VStack>
           <VStack
             space={3}
             justifyContent="center"
@@ -88,18 +66,17 @@ export default function PrayersFlatlist() {
             m="2"
           >
             {/* <AnimationWithImperativeApi /> */}
-            <Heading
+            <Text
               fontFamily={"Oswald-Bold"}
-              sub
+              fontSize="10px"
               _dark={{
                 color: "warmGray.50",
               }}
               // color="coolGray.800"
               color="#CFCFCF"
-              bold
             >
               {item.fullName.toUpperCase()}
-            </Heading>
+            </Text>
             <Center w="50" h="50">
               {/* <Box w="2" h="2" bg="white" rounded="xl"></Box> */}
               {/* <AnimationWithImperativeApi name={"popular-heart"} />

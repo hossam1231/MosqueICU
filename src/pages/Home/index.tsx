@@ -10,15 +10,19 @@ import {
 } from "components/Items/HLandscapeItem";
 import { HLongLandscapeItem } from "components/Items/HLongLandscapeItem";
 import { HLongPortraitItem } from "components/Items/HLongPortraitItem";
-import { HPortraitItem } from "components/Items/HPortraitItem";
-import { HSquareItem } from "components/Items/HSquareItem";
+import { HPortraitItem, HPortraitItemML } from "components/Items/HPortraitItem";
+import { HSquareItem, HSquareItemML } from "components/Items/HSquareItem";
 import { Box, Text, ZStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import { RouterKey } from "routes/routes-keys";
 import theme from "styles/GlobalStyles";
 import { Movie } from "types/movie.type";
 import { TVShow } from "types/tvshow.type";
-import { justForYouData } from "../../../data/justForYou";
+import {
+  IconicUnmissableData,
+  justForYouData,
+  MyListData,
+} from "../../../data/Home/home.js";
 import { HHighlightPanel } from "./components/HHighlightPanel";
 import {
   getDcMoviesTvShowsData,
@@ -107,27 +111,27 @@ export function HomePage({ navigation }: Props) {
       <HSimpleList
         title="Wholesome and Unmissible"
         subtitle="You love them, we love them, and may their reward be with their Lord."
-        items={items.iconicMovies}
+        items={IconicUnmissableData}
         renderItem={({ item }) => (
-          <HPortraitItem
+          <HPortraitItemML
             id={item.id}
-            image={item.poster_path}
+            image={item.uri}
             onPress={handleShowDetailItem}
           />
         )}
       />
 
       <HSimpleList
-        title="MyList"
-        items={items.popularMoviesTvShows}
+        title="My List"
+        items={MyListData}
         onPressTitle={handleMyList}
         renderIconTitle={
           <Feather name="chevron-right" size={16} color={theme.colors.white} />
         }
         renderItem={({ item }) => (
-          <HSquareItem
+          <HSquareItemML
             id={item.id}
-            image={item.backdrop_path}
+            image={item.uri}
             title={item.title}
             onPress={(id: number) =>
               handleShowDetailItem(id, item.title ? "movie" : "tv")
@@ -136,7 +140,7 @@ export function HomePage({ navigation }: Props) {
         )}
       />
 
-      <HSimpleList
+      {/* <HSimpleList
         title="What the World Is Talking About"
         items={items.dcMoviesTvShows}
         onPressTitle={handleMyList}
@@ -153,9 +157,9 @@ export function HomePage({ navigation }: Props) {
             }
           />
         )}
-      />
+      /> */}
 
-      <HSimpleList
+      {/* <HSimpleList
         title="Watched to the MAX"
         subtitle="Our TOP 10 movies and series that are trending in your country this week."
         textAlign="center"
@@ -171,9 +175,9 @@ export function HomePage({ navigation }: Props) {
             }
           />
         )}
-      />
+      /> */}
 
-      <HSimpleList
+      {/* <HSimpleList
         title="HBO Max Hubs"
         items={items.movies}
         onPressTitle={handleMyList}
@@ -187,7 +191,7 @@ export function HomePage({ navigation }: Props) {
             onPress={handleShowDetailItem}
           />
         )}
-      />
+      /> */}
 
       {!!highlightMovie && (
         <HHighlightItem
@@ -199,7 +203,7 @@ export function HomePage({ navigation }: Props) {
         />
       )}
 
-      <HSimpleList
+      {/* <HSimpleList
         title="Iconic Collections"
         items={items.iconicMovies}
         renderItem={({ item }) => (
@@ -209,9 +213,9 @@ export function HomePage({ navigation }: Props) {
             onPress={handleShowDetailItem}
           />
         )}
-      />
+      /> */}
 
-      <HSimpleList
+      {/* <HSimpleList
         title="The Ultimate Streaming Home of the DC Universe"
         items={items.dcMoviesTvShows}
         renderItem={({ item }) => (
@@ -223,7 +227,7 @@ export function HomePage({ navigation }: Props) {
             }
           />
         )}
-      />
+      /> */}
     </HBody>
   );
 }

@@ -1,4 +1,9 @@
-import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  FontAwesome,
+  Feather,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { Platform } from "react-native";
@@ -121,8 +126,8 @@ export function TabRoutes() {
         options={{
           tabBarIcon: ({ size, focused }) => {
             return (
-              <Octicons
-                name="people"
+              <FontAwesome
+                name="compass"
                 size={size - 3}
                 color={
                   focused ? theme.colors.purple_normal : theme.colors.white
