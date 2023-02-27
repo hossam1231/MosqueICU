@@ -22,6 +22,7 @@ import {
   IconicUnmissableData,
   justForYouData,
   MyListData,
+  TalkingAboutData,
 } from "../../../data/Home/home.js";
 import { HHighlightPanel } from "./components/HHighlightPanel";
 import {
@@ -92,21 +93,43 @@ export function HomePage({ navigation }: Props) {
     <HBody openSidebar={openSidebar}>
       <HHighlightPanel onPress={handleShowDetailItem}>
         <HSimpleList
-          title="Just For You"
-          items={justForYouData}
-          renderItem={({ item }) => (
-            // <ZStack>
-            <HLandscapeItemFY
-              // id={item.id}
-              image={item.uri}
-              // onPress={handleShowDetailItem}
+          title="My List"
+          items={MyListData}
+          onPressTitle={handleMyList}
+          renderIconTitle={
+            <Feather
+              name="chevron-right"
+              size={16}
+              color={theme.colors.white}
             />
-            //   <Text>hi</Text>
-            // </ZStack>
-            // <Box w="20" h="20" m="2" bg="white"></Box>
+          }
+          renderItem={({ item }) => (
+            <HSquareItemML
+              id={item.id}
+              image={item.uri}
+              title={item.title}
+              onPress={(id: number) =>
+                handleShowDetailItem(id, item.title ? "movie" : "tv")
+              }
+            />
           )}
         />
       </HHighlightPanel>
+      <HSimpleList
+        title="Just For You"
+        items={justForYouData}
+        renderItem={({ item }) => (
+          // <ZStack>
+          <HLandscapeItemFY
+            // id={item.id}
+            image={item.uri}
+            // onPress={handleShowDetailItem}
+          />
+          //   <Text>hi</Text>
+          // </ZStack>
+          // <Box w="20" h="20" m="2" bg="white"></Box>
+        )}
+      />
 
       <HSimpleList
         title="Wholesome and Unmissible"
@@ -116,33 +139,15 @@ export function HomePage({ navigation }: Props) {
           <HPortraitItemML
             id={item.id}
             image={item.uri}
+            title={item.title}
             onPress={handleShowDetailItem}
           />
         )}
       />
 
       <HSimpleList
-        title="My List"
-        items={MyListData}
-        onPressTitle={handleMyList}
-        renderIconTitle={
-          <Feather name="chevron-right" size={16} color={theme.colors.white} />
-        }
-        renderItem={({ item }) => (
-          <HSquareItemML
-            id={item.id}
-            image={item.uri}
-            title={item.title}
-            onPress={(id: number) =>
-              handleShowDetailItem(id, item.title ? "movie" : "tv")
-            }
-          />
-        )}
-      />
-
-      {/* <HSimpleList
         title="What the World Is Talking About"
-        items={items.dcMoviesTvShows}
+        items={TalkingAboutData}
         onPressTitle={handleMyList}
         renderIconTitle={
           <Feather name="chevron-right" size={16} color={theme.colors.white} />
@@ -150,14 +155,15 @@ export function HomePage({ navigation }: Props) {
         renderItem={({ item }) => (
           <HLongLandscapeItem
             id={item.id}
-            image={item.backdrop_path}
+            image={item.uri}
             title={item.title}
+            chart={item.chart}
             onPress={(id: number) =>
               handleShowDetailItem(id, item.title ? "movie" : "tv")
             }
           />
         )}
-      /> */}
+      />
 
       {/* <HSimpleList
         title="Watched to the MAX"

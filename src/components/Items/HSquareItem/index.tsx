@@ -30,19 +30,6 @@ export function HSquareItem({ id, image, title, onPress }: IItemData) {
     </TouchableOpacity>
   );
 }
-// export function HSquareItemML({ id, image, title, onPress }: IItemData) {
-//   const safeTitle =
-//     !!title && title.length > 35 ? `${title.substring(0, 35)}...` : title;
-
-//   return (
-//     <TouchableOpacity onPress={() => !!onPress && onPress(id)}>
-//       <View style={{ paddingBottom: !!title ? 10 : 0 }}>
-//         <SImage source={image} />
-//         {!!title && <STitle>{safeTitle}</STitle>}
-//       </View>
-//     </TouchableOpacity>
-//   );
-// }
 
 export function HSquareItemML({
   id,
@@ -52,29 +39,33 @@ export function HSquareItemML({
   onPress,
 }: IItemData) {
   return (
-    <Box p="1" h="100" w="100">
-      <SBoxContainer>
-        <Center flex="1">
-          <Image
-            style={{ width: 60, height: 60 }}
-            // source={require("@expo/snack-static/react-native-logo.png")}
-            source={image}
-          />
-        </Center>
-        {/* <Text style={[styles.textStyle, { paddingTop: 10 }]}>{author}</Text>
+    <VStack>
+      <Box p="1" h="100" w="100">
+        <SBoxContainer>
+          <Center flex="1">
+            <Image
+              style={{ width: 60, height: 60 }}
+              // source={require("@expo/snack-static/react-native-logo.png")}
+              source={image}
+            />
+          </Center>
+          {/* <Text style={[styles.textStyle, { paddingTop: 10 }]}>{author}</Text>
         <Text style={styles.textStyle}> Jenifer Lawrance</Text>
-
+        
         <Text style={styles.textStyle}> Jenifer Lawrance</Text>
-        <Text style={styles.textStyle}> +14155552671</Text> */}
-        {/* <ImageBackground
+      <Text style={styles.textStyle}> +14155552671</Text> */}
+          {/* <ImageBackground
         source={require("../../../../assets/mudBackground.png")}
         style={styles.container}
       > */}
-      </SBoxContainer>
-      {/* <Heading color="white" sub>
-        Quran
-      </Heading> */}
-    </Box>
+        </SBoxContainer>
+      </Box>
+      <Box p="1">
+        <Heading ml="1" color="white" sub>
+          {title}
+        </Heading>
+      </Box>
+    </VStack>
   );
 }
 

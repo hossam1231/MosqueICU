@@ -1,3 +1,4 @@
+import { Box } from "native-base";
 import {
   View,
   Text,
@@ -41,11 +42,19 @@ export function HPortraitItemML({
   onPress,
 }: IItemData) {
   return (
-    <TouchableOpacity onPress={() => !!onPress && onPress(id)}>
-      <View style={{ paddingBottom: !!title ? 10 : 0 }}>
-        <SImage source={image}></SImage>
-        {/* {!!title && <STitle>{safeTitle}</STitle>} */}
-      </View>
+    <TouchableOpacity
+      style={{ borderRadius: 40 }}
+      onPress={() => !!onPress && onPress(id)}
+    >
+      {/* <Box
+        rounded="lg"
+        style={{ borderRadius: 10, paddingBottom: !!title ? 10 : 0 }}
+      >
+        <SImage style={{ borderRadius: 40 }} source={image}></SImage>
+        {!!title && <STitle>{safeTitle}</STitle>}
+      </Box> */}
+
+      <Text>hi</Text>
     </TouchableOpacity>
   );
 }

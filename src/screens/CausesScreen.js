@@ -1,5 +1,15 @@
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { Video } from "expo-av";
-import { Heading, VStack, Box, Badge } from "native-base";
+import {
+  Heading,
+  VStack,
+  Box,
+  Badge,
+  Icon,
+  Button,
+  HStack,
+  IconButton,
+} from "native-base";
 import { useMemo } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 
@@ -41,27 +51,47 @@ export default function CausesScreen() {
             SADAKAH TUL JARIA
           </Heading>
         </VStack>
-        <VStack
-          space={3}
-          size="sm"
+        <HStack
+          width="70%"
           position="absolute"
           bottom="60"
           left="0"
-          borderRightRadius="30px"
-          borderWidth="1px"
-          shadow={3}
-          bg="white"
-          borderColor="grey"
+          borderRightRadius="10px"
+          borderRightWidth="1px"
+          borderTopWidth="1px"
+          borderBottomWidth="1px"
+          shadow={1}
+          bg="#301A3A"
+          borderColor="#bf7af0"
           p="5"
         >
-          <Badge>
-            <Text fontFamily="Oswald-SemiBold">Donate</Text>
-          </Badge>
-          <Heading color="grey.600" sub>
-            You will be directed to www.britishredcross.com to complete your
-            donation
-          </Heading>
-        </VStack>
+          <VStack pr="10" flex="1" space={3}>
+            <HStack justifyContent={"space-between"}>
+              <Button
+                // leftIcon={
+                //   <Icon name="home" style={{ fontSize: 20, color: "red" }} />
+                // }
+                w="100%"
+                bg="#bf7af0"
+              >
+                <Text color="#301a3a">Support cause</Text>
+              </Button>
+              <IconButton
+                ml="2"
+                colorScheme="indigo"
+                _icon={{
+                  as: Ionicons,
+                  name: "information-circle",
+                }}
+              />
+            </HStack>
+
+            <Heading color="#BF7AF0" sub>
+              You will be directed to www.britishredcross.com to complete your
+              donation
+            </Heading>
+          </VStack>
+        </HStack>
       </View>
     </View>
   );

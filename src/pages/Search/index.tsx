@@ -44,13 +44,7 @@ export function SearchPage({ navigation }: Props) {
     <HBody
       openSidebar={openSidebar}
       useSafeAreaHeader
-      customHeaderContent={
-        <HTextInputHeader
-          value={textSearch}
-          onChangeText={onChangeTextSearch}
-          placeholder="What are you looking for?"
-        />
-      }
+      customHeaderContent={<HTextInputHeader />}
     >
       <SContent>
         <STitle>HBO Recommends</STitle>
