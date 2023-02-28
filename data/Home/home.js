@@ -31,10 +31,8 @@ export const MyListData = [
 
 export const IconicUnmissableData = [
   {
-    name: "Attend a Mosque",
-    author: "hossam sulleman",
-    type: "Arabic recitation + english translation",
-    uri: require("../../assets/QuranCover.png"),
+    name: "Fajir",
+    time: "2:13",
   },
 ];
 

@@ -12,7 +12,7 @@ import { HLongLandscapeItem } from "components/Items/HLongLandscapeItem";
 import { HLongPortraitItem } from "components/Items/HLongPortraitItem";
 import { HPortraitItem, HPortraitItemML } from "components/Items/HPortraitItem";
 import { HSquareItem, HSquareItemML } from "components/Items/HSquareItem";
-import { Box, Text, ZStack } from "native-base";
+import { Box, Heading, Text, ZStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import { RouterKey } from "routes/routes-keys";
 import theme from "styles/GlobalStyles";
@@ -131,7 +131,7 @@ export function HomePage({ navigation }: Props) {
         )}
       />
 
-      <HSimpleList
+      {/* <HSimpleList
         title="Wholesome and Unmissible"
         subtitle="You love them, we love them, and may their reward be with their Lord."
         items={IconicUnmissableData}
@@ -142,6 +142,18 @@ export function HomePage({ navigation }: Props) {
             title={item.title}
             onPress={handleShowDetailItem}
           />
+        )}
+      /> */}
+
+      <HSimpleList
+        title="Wholesome and Unmissible"
+        subtitle="You love them, we love them, and may their reward be with their Lord."
+        items={IconicUnmissableData}
+        renderItem={({ item }) => (
+          <Box p="2" flex="1" borderWidth="1" borderColor="white" bg="black">
+            <Heading color="white">{item.name}</Heading>
+            <Heading color="white">{item.time}</Heading>
+          </Box>
         )}
       />
 

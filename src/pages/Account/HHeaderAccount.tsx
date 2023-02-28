@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { Heading, HStack, Image, VStack } from "native-base";
 import { View, Text, TouchableOpacity, Pressable } from "react-native";
 
 import styled from "styled-components/native";
@@ -6,29 +7,74 @@ import theme from "styles/GlobalStyles";
 
 export function HHeaderAccount() {
   return (
-    <SHeaderAccountContainer>
+    // <>SHeaderAccountContainer>
+    //   <TouchableOpacity>
+    //     <Ionicons
+    //       name="ios-settings-outline"
+    //       size={24}
+    //       color={theme.colors.white}
+    //     />
+    //   </TouchableOpacity
+    //   <SAccountContainer>
+    //     <Pressable
+    //       onPress={() => {
+    //         console.log("hi");
+    //       }}
+    //     >
+    //       <Image
+    //         w="50"
+    //         h="50"
+    //         rounded="xl"
+    //         source={require("../../../assets/kabacircle.png")}
+    //       />
+    //     </Pressable>
+    //   </SAccountContainer>
+    //   <SAccountContainer>
+    //     <Pressable
+    //       onPress={() => {
+    //         console.log("hi");
+    //       }}
+    //     >
+    //       <Image
+    //         w="50"
+    //         h="50"
+    //         rounded="xl"
+    //         source={require("../../../assets/kabacircle.png")}
+    //       />
+    //     </Pressable>
+    //   </SAccountContainer>
+    //   <SSpacing />
+    // </>
+    <HStack
+      p="5"
+      alignItems="center"
+      px="5"
+      w="100%"
+      justifyContent="space-between"
+    >
       <TouchableOpacity>
-        <Ionicons
-          name="ios-settings-outline"
-          size={24}
-          color={theme.colors.white}
-        />
+        <Heading color="white" sub>
+          FILTER
+        </Heading>
       </TouchableOpacity>
-      <SAccountContainer>
+      <VStack>
         <Pressable
           onPress={() => {
             console.log("hi");
           }}
         >
-          <SPicture
-            source={{
-              uri: "https://avatars.githubusercontent.com/u/30120305?s=400&u=2c33a6777ec253d664a59108230924e555c89070&v=4",
-            }}
+          <Image
+            w="50"
+            h="50"
+            rounded="xl"
+            source={require("../../../assets/kabacircle.png")}
           />
         </Pressable>
-      </SAccountContainer>
-      <SSpacing />
-    </SHeaderAccountContainer>
+        <Heading mt="2" color="white" sub>
+          COMPASS
+        </Heading>
+      </VStack>
+    </HStack>
   );
 }
 

@@ -71,7 +71,7 @@ export function TabRoutes() {
           },
         }}
       />
-      <Screen
+      {/* <Screen
         name="Search"
         component={SearchPage}
         listeners={{
@@ -92,7 +92,7 @@ export function TabRoutes() {
             );
           },
         }}
-      />
+      /> */}
       <Screen
         name="sadasd"
         component={CausesScreen}
