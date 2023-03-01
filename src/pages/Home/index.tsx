@@ -144,7 +144,7 @@ export function HomePage({ navigation }: Props) {
           />
         )}
       /> */}
-
+{/* 
       <HSimpleList
         title="Wholesome and Unmissible"
         subtitle="You love them, we love them, and may their reward be with their Lord."
@@ -155,7 +155,7 @@ export function HomePage({ navigation }: Props) {
             <Heading color="white">{item.time}</Heading>
           </Box>
         )}
-      />
+      /> */}
 
       <HSimpleList
         title="What the World Is Talking About"
