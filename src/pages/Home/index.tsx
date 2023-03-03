@@ -12,7 +12,7 @@ import { HLongLandscapeItem } from "components/Items/HLongLandscapeItem";
 import { HLongPortraitItem } from "components/Items/HLongPortraitItem";
 import { HPortraitItem, HPortraitItemML } from "components/Items/HPortraitItem";
 import { HSquareItem, HSquareItemML } from "components/Items/HSquareItem";
-import { Box, Heading, Text, ZStack } from "native-base";
+import { Box, Heading, Pressable, Text, ZStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import { RouterKey } from "routes/routes-keys";
 import theme from "styles/GlobalStyles";
@@ -81,7 +81,7 @@ export function HomePage({ navigation }: Props) {
     console.log("navigate to my list");
   }
 
-  function handleShowDetailItem(id: number, type: "movie" | "tv" = "movie") {
+  function handleShowDetailItem(id: number, type: String) {
     navigation.navigate(RouterKey.DetailItemPage, { id, type });
   }
 
@@ -104,14 +104,13 @@ export function HomePage({ navigation }: Props) {
             />
           }
           renderItem={({ item }) => (
-            <HSquareItemML
-              id={item.id}
-              image={item.uri}
-              title={item.title}
-              onPress={(id: number) =>
-                handleShowDetailItem(id, item.title ? "movie" : "tv")
-              }
-            />
+            <Pressable
+              onPress={() => {
+                handleShowDetailItem(2, item.title);
+              }}
+            >
+              <HSquareItemML id={item.id} image={item.uri} title={item.title} />
+            </Pressable>
           )}
         />
       </HHighlightPanel>
@@ -144,7 +143,7 @@ export function HomePage({ navigation }: Props) {
           />
         )}
       /> */}
-{/* 
+      {/* 
       <HSimpleList
         title="Wholesome and Unmissible"
         subtitle="You love them, we love them, and may their reward be with their Lord."

@@ -20,10 +20,10 @@ export const justForYouData = [
 export const MyListData = [
   { title: "Hadith", uri: require("../../assets/AlQuranBook2.png") },
   { title: "Charity", uri: require("../../assets/CharityBox3.png") },
+  { title: "Compass", uri: require("../../assets/Kaaba3.png") },
   { title: "Thikr", uri: require("../../assets/PrayerBeads.png") },
   { title: "Dua", uri: require("../../assets/DuaBook2.png") },
   { title: "Educate", uri: require("../../assets/WashingHands2.png") },
-  { title: "Pilgrimage", uri: require("../../assets/Kaaba3.png") },
   { title: "Fasting", uri: require("../../assets/DateFruit.png") },
   { title: "Quran", uri: require("../../assets/AlQuranBookRead4.png") },
   { title: "Prayer", uri: require("../../assets/PrayerRugCarpet3.png") },

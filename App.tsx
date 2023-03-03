@@ -13,6 +13,9 @@ import { TabProvider } from "./src/context/TabContext";
 import { HLoading } from "components/HLoading";
 import useCachedResources from "./hooks/useCachedResources";
 
+
+
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
 

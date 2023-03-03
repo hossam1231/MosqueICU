@@ -106,7 +106,7 @@ export function HHighlightPanel({ children, onPress }: Props) {
         <SImageBackground
           resizeMode="cover"
           // source={require("../../../../../animations/day-to-night-cycle.gif")}
-          source={require("../../../../../assets/palmTree.png")}
+          source={require("../../../../../assets/RamadanWindowDesert2.png")}
         >
           <HHeaderGrandientBackground />
           <HBottomGradientBackground>

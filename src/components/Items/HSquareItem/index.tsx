@@ -15,7 +15,7 @@ import {
   SBoxContainer,
   STextInputContainer,
 } from "components/HTextInput/styles";
-import { Box, Center, Heading, VStack } from "native-base";
+import { Box, Center, Heading, Pressable, VStack } from "native-base";
 
 export function HSquareItem({ id, image, title, onPress }: IItemData) {
   const safeTitle =

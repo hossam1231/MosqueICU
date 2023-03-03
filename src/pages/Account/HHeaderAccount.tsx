@@ -1,5 +1,5 @@
-import { Ionicons } from "@expo/vector-icons";
-import { Heading, HStack, Image, VStack } from "native-base";
+import { Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Heading, HStack, Icon, IconButton, Image, VStack } from "native-base";
 import { View, Text, TouchableOpacity, Pressable } from "react-native";
 
 import styled from "styled-components/native";
@@ -45,34 +45,40 @@ export function HHeaderAccount() {
     //   </SAccountContainer>
     //   <SSpacing />
     // </>
-    <HStack
-      p="5"
-      alignItems="center"
-      px="5"
-      w="100%"
-      justifyContent="space-between"
-    >
+    <HStack alignItems="center" w="100%" justifyContent="space-between">
       <TouchableOpacity>
         <Heading color="white" sub>
           FILTER
         </Heading>
       </TouchableOpacity>
       <VStack>
-        <Pressable
-          onPress={() => {
-            console.log("hi");
+        <IconButton
+          // onPress={() => {
+          //   handleClosePress();
+          // }}
+          icon={<Icon as={FontAwesome} name="location-arrow" />}
+          borderRadius="full"
+          _icon={{
+            color: "orange.500",
+            size: "md",
           }}
-        >
-          <Image
-            w="50"
-            h="50"
-            rounded="xl"
-            source={require("../../../assets/kabacircle.png")}
-          />
-        </Pressable>
-        <Heading mt="2" color="white" sub>
-          COMPASS
-        </Heading>
+          _hover={{
+            bg: "orange.600:alpha.20",
+          }}
+          _pressed={{
+            bg: "orange.600:alpha.20",
+            _ios: {
+              _icon: {
+                size: "2xl",
+              },
+            },
+          }}
+          _ios={{
+            _icon: {
+              size: "2xl",
+            },
+          }}
+        />
       </VStack>
     </HStack>
   );

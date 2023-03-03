@@ -22,6 +22,7 @@ import { MapTopBar } from "components/Map";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import FlatListFL from "components/FlatList.Map";
 import { sleep } from "../../functions/sleep";
+import { latLocation, lonLocation } from "../../data/location";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -39,14 +40,6 @@ const MapScreen = () => {
   //   () => [windowHeight / 10, windowHeight / 5, windowHeight / 2.5],
   //   []
   // );
-
-  const sleepMS = async ({ ms, func }) => {
-    for (let i = 1; i < 5; i++) {
-      console.log(`Waiting for ${JSON.stringify(ms)}ms`);
-      await sleep(ms);
-      func();
-    }
-  };
 
   const handleToggleInfo = () => {
     bottomSheetRef.current.snapToIndex(2);
@@ -142,8 +135,8 @@ const MapScreen = () => {
       <MapView
         userInterfaceStyle={"dark"}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: latLocation,
+          longitude: lonLocation,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
@@ -155,6 +148,7 @@ const MapScreen = () => {
         {fakeData.map((data) => {
           return (
             <Marker
+              style={{ width: 26, height: 28 }}
               onPress={() => {
                 handleToggleInfo();
                 setCurrentMarker(data);
@@ -167,9 +161,15 @@ const MapScreen = () => {
                 latitude: data.latitude,
                 longitude: data.longitude,
               }}
-              icon={getImageType(data.type)}
-              image={getImageType(data.type)}
-            />
+              // icon={getImageType(data.type)}
+              // image={getImageType(data.type)}
+            >
+              <Image
+                source={getImageType(data.type)}
+                style={{ width: 26, height: 28 }}
+                resizeMode="center"
+              />
+            </Marker>
           );
         })}
       </MapView>
