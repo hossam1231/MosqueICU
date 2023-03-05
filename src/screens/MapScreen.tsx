@@ -1,8 +1,7 @@
 import MapView, { Marker } from "react-native-maps";
 import { Dimensions, Pressable, TouchableHighlight } from "react-native";
-
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import {
   Box,
@@ -16,6 +15,7 @@ import {
   IconButton,
   Heading,
   Badge,
+  Text,
 } from "native-base";
 
 import { MapTopBar } from "components/Map";
@@ -27,7 +27,10 @@ import { latLocation, lonLocation } from "../../data/location";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
+//
+
 const MapScreen = () => {
+  const [mapMarkers, setMapMarkers] = useState();
   const [currentMarker, setCurrentMarker] = useState();
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -41,10 +44,22 @@ const MapScreen = () => {
   //   []
   // );
 
+  async function getMapMarkers() {
+    console.log("getting map markers");
+    const response = await fetch(`https://web.mosque.icu/api/map`);
+    const data = await response.json();
+    setMapMarkers(data);
+    return data;
+  }
   const handleToggleInfo = () => {
     bottomSheetRef.current.snapToIndex(2);
   };
   const handleClosePress = () => bottomSheetRef.current.close();
+
+  React.useEffect(() => {
+    !mapMarkers && getMapMarkers();
+    console.log(`mapMarkers ${JSON.stringify(mapMarkers)}`);
+  }, [mapMarkers]);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -187,6 +202,7 @@ const MapScreen = () => {
         <BottomSheetScrollView
         //  contentContainerStyle={styles.contentContainer}
         >
+          <Text color="white">{JSON.stringify(mapMarkers)}</Text>
           {!currentMarker || currentMarker.ref === 1 ? (
             <Box p="2" flex="1">
               <HStack
