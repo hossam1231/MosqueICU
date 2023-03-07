@@ -7,6 +7,8 @@ import React, {
   useRef,
   useState,
 } from "react";
+import axios from "axios";
+import base64 from "react-native-base64";
 import { View, StyleSheet } from "react-native";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import {
@@ -63,13 +65,10 @@ const MapScreen = () => {
   }, []);
 
   async function getMarkersInPostcodes(postcodes) {
-    console.log("getting map markers");
-    const response = await fetch(
-      `https://web.mosque.icu/api/map?postcodes=${JSON.stringify(postcodes)}`
-    );
-    const data = await response.json();
-
-    console.log(data);
+    const response = await axios.post("https://web.mosque.icu/api/map", {
+      postcodes: JSON.stringify(postcodes),
+    });
+    console.log(response.data);
   }
 
   async function getNearestLocation() {
@@ -77,12 +76,7 @@ const MapScreen = () => {
       `https://api.postcodes.io/postcodes?lon=${location.coords.longitude}&lat=${location.coords.latitude}`
     );
     const data = await response.json();
-    getMarkersInPostcodes({ ...data.result });
-    for (let index = 0; index < data.result.length; index++) {
-      const element = data.result[index];
-      console.log(element.postcode);
-    }
-    return data;
+    getMarkersInPostcodes(data.result);
   }
 
   React.useEffect(() => {
@@ -96,11 +90,6 @@ const MapScreen = () => {
     bottomSheetRef.current.snapToIndex(2);
   };
   const handleClosePress = () => bottomSheetRef.current.close();
-
-  React.useEffect(() => {
-    !mapMarkers && getMapMarkers();
-    console.log(`mapMarkers ${JSON.stringify(mapMarkers)}`);
-  }, [mapMarkers]);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -211,7 +200,7 @@ const MapScreen = () => {
           height: windowHeight,
         }}
       >
-        {fakeData.map((data) => {
+        {/* {fakeData.map((data) => {
           return (
             <Marker
               style={{ width: 26, height: 28 }}
@@ -237,7 +226,7 @@ const MapScreen = () => {
               />
             </Marker>
           );
-        })}
+        })} */}
       </MapView>
       <Text>{JSON.stringify(location)}</Text>
     </>
