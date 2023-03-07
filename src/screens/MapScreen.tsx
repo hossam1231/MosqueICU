@@ -1,6 +1,12 @@
 import MapView, { Marker } from "react-native-maps";
 import { Dimensions, Pressable, TouchableHighlight } from "react-native";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { View, StyleSheet } from "react-native";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import {
@@ -17,24 +23,22 @@ import {
   Badge,
   Text,
 } from "native-base";
-
 import { MapTopBar } from "components/Map";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import FlatListFL from "components/FlatList.Map";
 import { sleep } from "../../functions/sleep";
-import { latLocation, lonLocation } from "../../data/location";
+import * as Location from "expo-location";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-//
-
 const MapScreen = () => {
   const [mapMarkers, setMapMarkers] = useState();
+  const [location, setLocation] = useState({});
+
   const [currentMarker, setCurrentMarker] = useState();
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
-
   // variables
   function snapPoints() {
     return useMemo(() => ["13%", "25%", "50%"], []);
@@ -43,14 +47,51 @@ const MapScreen = () => {
   //   () => [windowHeight / 10, windowHeight / 5, windowHeight / 2.5],
   //   []
   // );
+  React.useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+        timeInterval: 5,
+      });
+      console.log(location);
+      setLocation(location);
+    })();
+  }, []);
 
-  async function getMapMarkers() {
+  async function getMarkersInPostcodes(postcodes) {
     console.log("getting map markers");
-    const response = await fetch(`https://web.mosque.icu/api/map`);
+    const response = await fetch(
+      `https://web.mosque.icu/api/map?postcodes=${JSON.stringify(postcodes)}`
+    );
     const data = await response.json();
-    setMapMarkers(data);
+
+    console.log(data);
+  }
+
+  async function getNearestLocation() {
+    const response = await fetch(
+      `https://api.postcodes.io/postcodes?lon=${location.coords.longitude}&lat=${location.coords.latitude}`
+    );
+    const data = await response.json();
+    getMarkersInPostcodes({ ...data.result });
+    for (let index = 0; index < data.result.length; index++) {
+      const element = data.result[index];
+      console.log(element.postcode);
+    }
     return data;
   }
+
+  React.useEffect(() => {
+    if (location) {
+      goToMyLocation();
+      getNearestLocation();
+    }
+  }, [location]);
+
   const handleToggleInfo = () => {
     bottomSheetRef.current.snapToIndex(2);
   };
@@ -143,19 +184,29 @@ const MapScreen = () => {
         break;
     }
   }
+  const mapRef = React.createRef();
 
-  // renders
+  const goToMyLocation = async () => {
+    console.log("goToMyLocation");
+    mapRef.current.animateCamera({
+      center: {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        // latitudeDelta: 0.003663,
+        // longitudeDelta: 0.002001,
+      },
+      altitude: 4000,
+      zoom: 10,
+    });
+  };
   return (
-    <View style={styles.container}>
+    <>
       <MapView
+        ref={mapRef}
+        showsUserLocation={true}
         userInterfaceStyle={"dark"}
-        initialRegion={{
-          latitude: latLocation,
-          longitude: lonLocation,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
         style={{
+          position: "absolute",
           width: windowWidth,
           height: windowHeight,
         }}
@@ -188,190 +239,8 @@ const MapScreen = () => {
           );
         })}
       </MapView>
-      {/* <HStack width="100%" justifyContent="space-between" position="absolute">
-        <MapTopBar />
-      </HStack> */}
-      <BottomSheet
-        handleIndicatorStyle={{ backgroundColor: "#7555F9" }}
-        backgroundStyle={{ backgroundColor: "#0F0F0F" }}
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints()}
-        onChange={handleSheetChanges}
-      >
-        <BottomSheetScrollView
-        //  contentContainerStyle={styles.contentContainer}
-        >
-          <Text color="white">{JSON.stringify(mapMarkers)}</Text>
-          {!currentMarker || currentMarker.ref === 1 ? (
-            <Box p="2" flex="1">
-              <HStack
-                justifyContent={"space-between"}
-                alignItems={"center"}
-                h={windowHeight / 10 / 2}
-              >
-                <Input
-                  bg="black"
-                  placeholder="Search name, address, postcode.."
-                  variant="filled"
-                  width="70%"
-                  borderWidth="2"
-                  borderColor={"grey.800"}
-                  borderRadius="10"
-                  py="3"
-                  ml="2"
-                  px="2"
-                  InputLeftElement={
-                    <Icon
-                      ml="2"
-                      size="4"
-                      color="gray.400"
-                      as={<Ionicons name="ios-search" />}
-                    />
-                  }
-                />
-                {/* <HStack>
-
-                </HStack> */}
-                <Badge rounded="md" p="2" colorScheme={"dark"}>
-                  <HStack space={2} alignItems="center">
-                    <Heading sub color="#999999">
-                      Compass
-                    </Heading>
-                    <Image
-                      width={"5"}
-                      h="5"
-                      source={require("../../assets/Kaaba2.png")}
-                    />
-                  </HStack>
-                </Badge>
-              </HStack>
-              <HStack m="2" space={3}>
-                {/* <Badge colorScheme={"dark"}>
-                  <Heading sub color="#999999">
-                    Mosque
-                  </Heading>
-                  <Image width={'5'} h='5'  source={require("../../assets/markergpsmosque.png")} />}
-                </Badge>
-                <Badge colorScheme={"dark"}>
-                  <Heading sub color="#999999">
-                    Community center
-                  </Heading>
-                   <Image width={'5'} h='5' source={require("../../assets/markergpsmosque.png")} />}
-                </Badge> */}
-                <Badge rounded="md" p="2" colorScheme={"dark"}>
-                  <HStack space={2} alignItems="center">
-                    <Heading sub color="#999999">
-                      Mosque
-                    </Heading>
-                    <Image
-                      width={"5"}
-                      h="5"
-                      source={require("../../assets/ArabicLightLamp2.png")}
-                    />
-                  </HStack>
-                </Badge>
-                <Badge rounded="md" p="2" colorScheme={"dark"}>
-                  <HStack space={2} alignItems="center">
-                    <Heading sub color="#999999">
-                      Preacher
-                    </Heading>
-                    <Image
-                      width={"5"}
-                      h="5"
-                      source={require("../../assets/Lantern4.png")}
-                    />
-                  </HStack>
-                </Badge>
-                <Badge rounded="md" p="2" colorScheme={"dark"}>
-                  <HStack space={2} alignItems="center">
-                    <Heading sub color="#999999">
-                      Community center
-                    </Heading>
-                    <Image
-                      width={"5"}
-                      h="5"
-                      source={require("../../assets/Ketupat4.png")}
-                    />
-                  </HStack>
-                </Badge>
-              </HStack>
-            </Box>
-          ) : (
-            <Box p="2" flex="1">
-              <HStack
-                justifyContent={"flex-end"}
-                alignItems={"center"}
-                h={windowHeight / 10 / 2}
-              >
-                <IconButton
-                  onPress={() => {
-                    handleClosePress();
-                  }}
-                  icon={<Icon as={Entypo} name="emoji-happy" />}
-                  borderRadius="full"
-                  _icon={{
-                    color: "orange.500",
-                    size: "md",
-                  }}
-                  _hover={{
-                    bg: "orange.600:alpha.20",
-                  }}
-                  _pressed={{
-                    bg: "orange.600:alpha.20",
-                    _icon: {
-                      name: "emoji-flirt",
-                    },
-                    _ios: {
-                      _icon: {
-                        size: "2xl",
-                      },
-                    },
-                  }}
-                  _ios={{
-                    _icon: {
-                      size: "2xl",
-                    },
-                  }}
-                />
-              </HStack>
-              <Heading color="white">{currentMarker.application.name}</Heading>
-              <HStack>
-                <Heading sub color="white">
-                  Mosque:
-                </Heading>
-                <Heading sub color="white">
-                  Northampton,Upton
-                </Heading>
-              </HStack>
-              <Box>
-                <HStack space={4} h="100">
-                  <Box flex="1" bg="white"></Box>
-                  <Box flex="1" bg="white"></Box>
-                </HStack>
-              </Box>
-              <Heading size="xs" color="white">
-                Prayer times
-              </Heading>
-            </Box>
-          )}
-        </BottomSheetScrollView>
-
-        {/* <View style={styles.contentContainer}>
-          <HStack
-            my="2"
-            mb="5"
-            alignItems={"center"}
-            justifyContent="center"
-            space={3}
-            px="2"
-          >
-           
-          </HStack> */}
-        {/* <FlatListFL />
-        </View> */}
-      </BottomSheet>
-    </View>
+      <Text>{JSON.stringify(location)}</Text>
+    </>
   );
 };
 

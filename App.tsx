@@ -12,11 +12,13 @@ import {
 import { TabProvider } from "./src/context/TabContext";
 import { HLoading } from "components/HLoading";
 import useCachedResources from "./hooks/useCachedResources";
-
-
-
+import React, { useState, useEffect } from "react";
+import { Platform, Text, View, StyleSheet } from "react-native";
+import { createContext, useContext } from "react";
 
 export default function App() {
+  const [errorMsg, setErrorMsg] = useState(null);
+
   const isLoadingComplete = useCachedResources();
 
   let [fontsLoaded] = useFonts({
