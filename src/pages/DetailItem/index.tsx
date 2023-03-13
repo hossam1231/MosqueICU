@@ -39,16 +39,67 @@ import Table from "components/Table/Table";
 import { latLocation, lonLocation } from "../../../data/location";
 import { MyListData } from "../../../data/Home/home";
 import { HSquareItemML } from "components/Items/HSquareItem";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getFromLocalStorage } from "../../../src/lib";
 
 export function DetailItem({ route }: any) {
   const [subscription, setSubscription] = useState(null);
 
+  const [prayerStreak, setPrayerStreak] = useState(
+    [
+      { name: "Fajr", status: "pray now", streak: 0 },
+      { name: "Dhuhr", status: "pray now", streak: 0 },
+      { name: "Asr", status: "pray now", streak: 0 },
+      { name: "Maghrib", status: "pray now", streak: 0 },
+      { name: "Isha", status: "pray now", streak: 0 },
+    ]
+    //   {
+    //   Fajr: "0",
+    //   Dhuhr: "0",
+    //   Asr: "0",
+    //   Maghrib: "0",
+    //   Isha: "0",
+    // }
+  );
+
   const [magnetometer, setMagnetometer] = useState(0);
 
   const [prayerTimes, setPrayerTimes] = React.useState([]);
+  const [fajirStatus, setFajirStatus] = useState({ streak: 0, date: Date });
+  const [dhuhrStatus, setDhuhrStatus] = useState();
+  const [asrStatus, setAsrStatus] = useState();
+  const [maghribStatus, setMaghribStatus] = useState();
+  const [ishaStatus, setIshaStatus] = useState();
 
   const { height, width } = Dimensions.get("window");
   // console.log(prayerTimes);
+
+  const setFromLocalStorage = async (key, array) => {
+    for (let index = 0; index < array.length; index++) {
+      let value = await getFromLocalStorage({ key: `${key}/${array[index]}` });
+      if (value !== null) {
+        switch (array[index]) {
+          case array[index] == "Fajr":
+            setFajirStatus(value);
+            break;
+          case array[index] == "Dhuhr":
+            setDhuhrStatus(value);
+            break;
+          case array[index] == "Asr":
+            setAsrStatus(value);
+            break;
+          case array[index] == "Maghrib":
+            setMaghribStatus(value);
+            break;
+          case array[index] == "Isha":
+            setIshaStatus(value);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  };
 
   async function getPrayerTimes() {
     const response = await fetch(
@@ -56,7 +107,7 @@ export function DetailItem({ route }: any) {
     );
     const data = await response.json();
     console.log(data);
-    let prayerTimesArray = [];
+    let prayerTimesArray: any = [];
     Object.entries(data.data.timings).forEach((element) => {
       prayerTimesArray.push({
         name: element[0],
@@ -68,14 +119,28 @@ export function DetailItem({ route }: any) {
     return data;
   }
 
-  function getPrayerStreak() {
-    let prayerStreak = 0;
-    return prayerStreak;
-  }
+  // function getPrayerStreak(name) {
+  //   console.log(
+  //     "%c 🇪🇸: getPrayerStreak -> name ",
+  //     "font-size:16px;background-color:#98aadc;color:white;",
+  //     name
+  //   );
+  //   let prayerStreak = 0;
+  //   return prayerStreak;
+  // }
 
   React.useEffect(() => {
     getPrayerTimes();
-    getPrayerStreak();
+  }, []);
+
+  React.useLayoutEffect(() => {
+    setFromLocalStorage("PrayerStreak", [
+      "Fajr",
+      "Dhuhr",
+      "Asr",
+      "Maghrib",
+      "Isha",
+    ]);
   }, []);
 
   useEffect(() => {
@@ -148,8 +213,35 @@ export function DetailItem({ route }: any) {
 
   const navigation = useNavigation();
 
+  function incrementPrayerStreak(name) {
+    //
+    console.log("hi");
+    console.log(name);
+    // switch (name) {
+    //       case name  == "Fajr":
+    //         setFajirStatus(value);
+    //         break;
+    //       case name  == "Dhuhr":
+    //         setDhuhrStatus(value);
+    //         break;
+    //       case name  == "Asr":
+    //         setAsrStatus(value);
+    //         break;
+    //       case name  == "Maghrib":
+    //         setMaghribStatus(value);
+    //         break;
+    //       case name == "Isha":
+    //         setIshaStatus(value);
+    //         break;
+    //       default:
+    //         break;
+    //     }
+  }
+
   function getPageTitle(type) {
     switch (type) {
+      case "Prayer":
+        return "Prayer";
       case "Hadith":
         return "Hadith";
       default:
@@ -160,20 +252,11 @@ export function DetailItem({ route }: any) {
   function getSubTitle(type) {
     switch (type) {
       case "Prayer":
+        return "Prayer";
+      case "Hadith":
         return "Hadith";
       default:
         return "Loading...";
-    }
-  }
-
-  function getPrayerRakat(name) {
-    switch (name) {
-      case name == "Fajr":
-        return "2";
-        break;
-
-      default:
-        break;
     }
   }
 
@@ -382,9 +465,20 @@ export function DetailItem({ route }: any) {
                                   </STitleBadge>
                                 </SAdultBadge>
                                 <SSubtitle>{element.time}</SSubtitle>
-                                <SSubtitle>Prayed</SSubtitle>
+                                <SSubtitle
+                                  onPress={() => {
+                                    incrementPrayerStreak(element.name);
+                                  }}
+                                  style={{
+                                    textDecorationLine:
+                                      prayerStreak[0].status == "pray now" &&
+                                      "underline",
+                                  }}
+                                >
+                                  {prayerStreak[0].status}
+                                </SSubtitle>
                                 <SSubtitle>
-                                  {getPrayerStreak(element.name)}x streak
+                                  {prayerStreak[0].streak}x streak
                                 </SSubtitle>
                               </SItemInfo>
                             );
@@ -400,13 +494,19 @@ export function DetailItem({ route }: any) {
                                 </SAdultBadge>
                                 <SSubtitle>{element.time}</SSubtitle>
                                 <SSubtitle
-                                  style={{ textDecorationLine: "underline" }}
+                                  onPress={() => {
+                                    incrementPrayerStreak(element.name);
+                                  }}
+                                  style={{
+                                    textDecorationLine:
+                                      prayerStreak[1].status == "pray now" &&
+                                      "underline",
+                                  }}
                                 >
-                                  Pray now
+                                  {prayerStreak[1].status}
                                 </SSubtitle>
                                 <SSubtitle>
-                                  {" "}
-                                  {getPrayerStreak(element.name)}x streak
+                                  {prayerStreak[1].streak}x streak
                                 </SSubtitle>
                               </SItemInfo>
                             );
@@ -422,12 +522,19 @@ export function DetailItem({ route }: any) {
                                 </SAdultBadge>
                                 <SSubtitle>{element.time}</SSubtitle>
                                 <SSubtitle
-                                  style={{ textDecorationLine: "underline" }}
+                                  onPress={() => {
+                                    incrementPrayerStreak(element.name);
+                                  }}
+                                  style={{
+                                    textDecorationLine:
+                                      prayerStreak[2].status == "pray now" &&
+                                      "underline",
+                                  }}
                                 >
-                                  Pray now
+                                  {prayerStreak[2].status}
                                 </SSubtitle>
                                 <SSubtitle>
-                                  {getPrayerStreak(element.name)}x streak
+                                  {prayerStreak[2].streak}x streak
                                 </SSubtitle>
                               </SItemInfo>
                             );
@@ -443,12 +550,19 @@ export function DetailItem({ route }: any) {
                                 </SAdultBadge>
                                 <SSubtitle>{element.time}</SSubtitle>
                                 <SSubtitle
-                                  style={{ textDecorationLine: "underline" }}
+                                  onPress={() => {
+                                    incrementPrayerStreak(element.name);
+                                  }}
+                                  style={{
+                                    textDecorationLine:
+                                      prayerStreak[3].status == "pray now" &&
+                                      "underline",
+                                  }}
                                 >
-                                  Pray now
+                                  {prayerStreak[3].status}
                                 </SSubtitle>
                                 <SSubtitle>
-                                  {getPrayerStreak(element.name)}x streak
+                                  {prayerStreak[3].streak}x streak
                                 </SSubtitle>
                               </SItemInfo>
                             );
@@ -464,12 +578,19 @@ export function DetailItem({ route }: any) {
                                 </SAdultBadge>
                                 <SSubtitle>{element.time}</SSubtitle>
                                 <SSubtitle
-                                  style={{ textDecorationLine: "underline" }}
+                                  onPress={() => {
+                                    incrementPrayerStreak(element.name);
+                                  }}
+                                  style={{
+                                    textDecorationLine:
+                                      prayerStreak[4].status == "pray now" &&
+                                      "underline",
+                                  }}
                                 >
-                                  Pray now
+                                  {prayerStreak[4].status}
                                 </SSubtitle>
                                 <SSubtitle>
-                                  {getPrayerStreak(element.name)}x streak
+                                  {prayerStreak[4].streak}x streak
                                 </SSubtitle>
                               </SItemInfo>
                             );

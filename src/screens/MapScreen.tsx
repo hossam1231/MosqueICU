@@ -30,6 +30,7 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import FlatListFL from "components/FlatList.Map";
 import { sleep } from "../../functions/sleep";
 import * as Location from "expo-location";
+import { apiURL } from "../../data/URL";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -64,11 +65,11 @@ const MapScreen = () => {
     })();
   }, []);
 
-  async function getMarkersInPostcodes(postcodes) {
-    const response = await axios.post("https://web.mosque.icu/api/map", {
+  async function getMarkersInPostcodes(postcodes: any) {
+    const response = await axios.post(`${apiURL}/map`, {
       postcodes: JSON.stringify(postcodes),
     });
-    console.log(response.data);
+    console.log(response);
   }
 
   async function getNearestLocation() {
@@ -76,7 +77,12 @@ const MapScreen = () => {
       `https://api.postcodes.io/postcodes?lon=${location.coords.longitude}&lat=${location.coords.latitude}`
     );
     const data = await response.json();
-    getMarkersInPostcodes(data.result);
+    let postcodesFromAPI = [];
+    for (let index = 0; index < data.result.length; index++) {
+      const element = data.result[index];
+      postcodesFromAPI.push(element.postcode);
+    }
+    getMarkersInPostcodes(postcodesFromAPI);
   }
 
   React.useEffect(() => {
